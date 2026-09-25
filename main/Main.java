@@ -8,9 +8,11 @@ import repository.jdbc.JdbcCompteRepository;
 import repository.jdbc.JdbcTransactionRepository;
 import services.ClientService;
 import services.CompteService;
+import services.RapportService;
 import services.TransactionService;
 import ui.ClientMenu;
 import ui.CompteMenu;
+import ui.RapportMenu;
 import ui.TransactionMenu;
 
 import java.util.Scanner;
@@ -39,12 +41,16 @@ public class Main {
                         clientRepository,
                         compteRepository
                 );
+        RapportService rapportService =
+                new RapportService(url, user, password);
 
         try (Scanner scanner = new Scanner(System.in)) {
             ClientMenu clientMenu = new ClientMenu(clientService, scanner);
             CompteMenu compteMenu = new CompteMenu(compteService, scanner);
             TransactionMenu transactionMenu =
                     new TransactionMenu(transactionService, scanner);
+            RapportMenu rapportMenu =
+                    new RapportMenu(rapportService, scanner);
 
             while (true) {
                 System.out.println("""
@@ -53,6 +59,7 @@ public class Main {
                         1. Gestion des clients
                         2. Gestion des comptes
                         3. Gestion des transactions
+                        4. Rapports et statistiques
                         0. Quitter
                         """);
                 System.out.print("Votre choix : ");
@@ -65,6 +72,7 @@ public class Main {
                     case "1" -> clientMenu.lancer();
                     case "2" -> compteMenu.lancer();
                     case "3" -> transactionMenu.lancer();
+                    case "4" -> rapportMenu.lancer();
                     case "0" -> {
                         System.out.println("Au revoir !");
                         return;

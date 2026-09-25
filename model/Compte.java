@@ -3,13 +3,12 @@ package model;
 import java.math.BigDecimal;
 
 public abstract sealed class Compte permits CompteCourant, CompteEpargne {
+    private final long id;
+    private final String numero;
+    private final BigDecimal solde;
+    private final int idClient;
 
-    private long id;
-    private String numero;
-    private BigDecimal solde;
-    private long idClient;
-
-    protected Compte(long id, String numero, BigDecimal solde, long idClient) {
+    protected Compte(long id, String numero, BigDecimal solde, int idClient) {
         this.id = id;
         this.numero = numero;
         this.solde = solde;
@@ -20,31 +19,15 @@ public abstract sealed class Compte permits CompteCourant, CompteEpargne {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getNumero() {
         return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
     }
 
     public BigDecimal getSolde() {
         return solde;
     }
 
-    public void setSolde(BigDecimal solde) {
-        this.solde = solde;
-    }
-
-    public long getIdClient() {
+    public int getIdClient() {
         return idClient;
-    }
-
-    public void setIdClient(long idClient) {
-        this.idClient = idClient;
     }
 }

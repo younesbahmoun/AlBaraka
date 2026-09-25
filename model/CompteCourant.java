@@ -3,14 +3,13 @@ package model;
 import java.math.BigDecimal;
 
 public final class CompteCourant extends Compte {
-
-    private BigDecimal decouvertAutorise;
+    private final BigDecimal decouvertAutorise;
 
     public CompteCourant(
             long id,
             String numero,
             BigDecimal solde,
-            long idClient,
+            int idClient,
             BigDecimal decouvertAutorise
     ) {
         super(id, numero, solde, idClient);
@@ -21,7 +20,13 @@ public final class CompteCourant extends Compte {
         return decouvertAutorise;
     }
 
-    public void setDecouvertAutorise(BigDecimal decouvertAutorise) {
-        this.decouvertAutorise = decouvertAutorise;
+    @Override
+    public String toString() {
+        return "CompteCourant{id=" + getId()
+                + ", numero='" + getNumero() + '\''
+                + ", solde=" + getSolde()
+                + ", idClient=" + getIdClient()
+                + ", decouvertAutorise=" + decouvertAutorise
+                + '}';
     }
 }

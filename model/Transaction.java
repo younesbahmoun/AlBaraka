@@ -6,7 +6,7 @@ import enums.TypeTransaction;
 
 public record Transaction(
     long id,
-    LocalDateTime date,
+    LocalDateTime dateTransaction,
     BigDecimal montant,
     TypeTransaction type,
     String lieu,

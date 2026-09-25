@@ -2,10 +2,8 @@ package main;
 
 import repository.ClientRepository;
 import repository.CompteRepository;
-import repository.TransactionRepository;
 import repository.jdbc.JdbcClientRepository;
 import repository.jdbc.JdbcCompteRepository;
-import repository.jdbc.JdbcTransactionRepository;
 import services.ClientService;
 import services.CompteService;
 import services.RapportService;
@@ -29,26 +27,28 @@ public class Main {
         CompteRepository compteRepository =
                 new JdbcCompteRepository(url, user, password);
 
-        TransactionRepository transactionRepository =
-                new JdbcTransactionRepository(url, user, password);
+        ClientService clientService =
+                new ClientService(clientRepository);
 
-        ClientService clientService = new ClientService(clientRepository);
         CompteService compteService =
                 new CompteService(compteRepository, clientRepository);
+
         TransactionService transactionService =
-                new TransactionService(
-                        transactionRepository,
-                        clientRepository,
-                        compteRepository
-                );
+                new TransactionService(url, user, password);
+
         RapportService rapportService =
                 new RapportService(url, user, password);
 
         try (Scanner scanner = new Scanner(System.in)) {
-            ClientMenu clientMenu = new ClientMenu(clientService, scanner);
-            CompteMenu compteMenu = new CompteMenu(compteService, scanner);
+            ClientMenu clientMenu =
+                    new ClientMenu(clientService, scanner);
+
+            CompteMenu compteMenu =
+                    new CompteMenu(compteService, scanner);
+
             TransactionMenu transactionMenu =
                     new TransactionMenu(transactionService, scanner);
+
             RapportMenu rapportMenu =
                     new RapportMenu(rapportService, scanner);
 
